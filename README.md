@@ -3,7 +3,7 @@
 A React web app that lets users upload files, connects to a **Spring Boot Data Analysis API** (developed by author of this application), displays advanced stats, tracks progress, and provides downloadable analysis results.
 
 ## Tech Stack
-- React, Vite, TypeScript, Tailwind
+- React, Vite, TypeScript, Elastic UI  
 
 ## Features
 - Upload files in **JSON, Excel, TXT, CSV** formats.
