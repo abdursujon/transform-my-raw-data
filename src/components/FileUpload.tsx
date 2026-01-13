@@ -15,14 +15,17 @@ export default function FileUpload() {
   function handleSelect(e: ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0]
     if (!f) return
-    if (!f.name.toLowerCase().endsWith('.csv')) {
-      setError('Only CSV files are supported by this endpoint.')
+
+    const name = f.name.toLowerCase()
+    if (!name.endsWith('.csv') && !name.endsWith('.txt')) {
+      setError('Only CSV and TXT files are supported by this endpoint.')
       e.target.value = ''
       setFile(null)
       setFileName(null)
       setAnalysis(null)
       return
     }
+
     setError(null)
     setFile(f)
     setFileName(f.name)
@@ -34,19 +37,53 @@ export default function FileUpload() {
     if (!file) return
     setLoading(true)
     setError(null)
+
     try {
-      const csvText = await file.text()
+      const text = await file.text()
+
+      const name = file.name.toLowerCase()
+      const contentType =
+        name.endsWith('.csv') ? 'text/csv' :
+          name.endsWith('.txt') ? 'text/plain' :
+            ''
+
       const res = await fetch(`${API_BASE_URL}/api/analysis/ingestCsv`, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/csv' },
-        body: csvText,
+        headers: { 'Content-Type': contentType },
+        body: text,
       })
-      const text = await res.text()
+
+      const resText = await res.text()
+
       if (!res.ok) {
-        setError(text || 'Upload failed')
+        const frontendHint = !text.trim()
+          ? 'The file is empty.'
+          : 'The file content is invalid.'
+
+        let formatted = resText
+        try {
+          formatted = JSON.stringify(JSON.parse(resText), null, 2)
+        } catch { }
+
+        setError(
+          frontendHint +
+          '\n\nAPI response:\n' +
+          (formatted || `${res.status} ${res.statusText}`)
+        )
         return
       }
-      const json = JSON.parse(text)
+
+      let json
+      try {
+        json = JSON.parse(resText)
+      } catch {
+        setError(
+          'Response could not be parsed as JSON.\n\nAPI response:\n' +
+          resText
+        )
+        return
+      }
+
       setAnalysis(json)
       setAnalysisId(json.id)
     } catch {
@@ -55,6 +92,8 @@ export default function FileUpload() {
       setLoading(false)
     }
   }
+
+
 
   async function handleDownload() {
     if (!analysisId) return
@@ -85,34 +124,37 @@ export default function FileUpload() {
 
   return (
     <div className="mt-0 flex flex-col items-center gap-6">
-      <div className="w-full max-w-md rounded-xl border bg-white p-6 shadow-sm">
-        <label className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-blue-500">
+      <div className="w-full max-w-md rounded-xl border bg-white p-6 shadow-lg">
+        <label className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-green-500">
           <input
             type="file"
-            accept=".csv"
+            accept=".csv, .txt"
             onChange={handleSelect}
             className="hidden"
           />
-          <div className="text-sm text-gray-600">
-            {fileName ?? 'Click to select a CSV file'}
+          <div className="text-sm font-semibold text-gray-600 ">
+            {fileName ?? 'Click to select a file'}
           </div>
         </label>
 
         <button
           onClick={handleUpload}
           disabled={!file || loading}
-          className="mt-4 w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="mt-4 w-full cursor-pointer rounded-md bg-blue-600 py-2 text-sm font-medium text-white disabled:opacity-50 hover:bg-green-700"
         >
           Upload & Analyze
         </button>
 
         {loading && (
           <p className="mt-3 text-center text-sm text-blue-600">
-            Uploading…
+            Uploading please wait…
           </p>
         )}
         {error && (
-          <p className="mt-3 text-center text-sm text-red-600">{error}</p>
+          <p className="mt-3 whitespace-pre-wrap text-left text-sm text-red-600">
+            {error}
+          </p>
+
         )}
       </div>
 
@@ -126,7 +168,7 @@ export default function FileUpload() {
           <button
             onClick={handleDownload}
             disabled={downloading}
-            className="mt-4 rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+            className="mt-4 rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 hover:cursor-pointer transition duration-300 ease-in-out transform hover:scale-110"
           >
             Download analysis
           </button>

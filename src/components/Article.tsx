@@ -6,7 +6,7 @@ export default function Article() {
       </h2>
 
       <p className="mt-4 text-lg">
-        Transform My Raw Data is a data analysis platform that turns uploaded
+        <span className="font-bold">Transform My Raw Data </span>is a data analysis platform that turns uploaded
         files into structured insights. It validates input, processes large
         datasets, and returns detailed statistical results in real time.
       </p>
@@ -16,9 +16,9 @@ export default function Article() {
       </h3>
 
       <p className="mt-3">
-        The application accepts CSV, Excel, JSON, and TXT files. Each file is
+        The application accepts CSV, and TXT files (JSON, and Excel will be avaiable soon). Each file is
         parsed, validated, and analysed using a dedicated Spring Boot Data
-        Analysis API.
+        Analysis API. 
       </p>
 
       <h3 className="mt-10 text-2xl font-semibold text-slate-900">
@@ -30,6 +30,7 @@ export default function Article() {
           <strong>Data quality checks:</strong> null and missing values per
           column, invalid entries, and format validation.
         </li>
+        <h2 className="font-semibold">Below feature will be avaiable soon.</h2>
         <li>
           <strong>Descriptive statistics:</strong> minimum, maximum, mean,
           median, mode, standard deviation, variance, totals, and counts.

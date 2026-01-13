@@ -10,19 +10,25 @@ export default function Hero() {
         Upload your data and get fast, accurate analysis with zero setup.
       </p>
 
-      <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
-        <span className="rounded-full border px-4 py-1 text-slate-700">CSV</span>
-        <span className="rounded-full border px-4 py-1 text-slate-700">Excel</span>
-        <span className="rounded-full border px-4 py-1 text-slate-700">JSON</span>
-        <span className="rounded-full border px-4 py-1 text-slate-700">TXT</span>
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <h2 className="text-lg font-semibold text-slate-800">Supported Files</h2>
+        <span className="rounded-full border px-4 py-1 text-sm text-slate-700">CSV</span>
+        {/* <span className="rounded-full border px-4 py-1 text-slate-700">Excel</span> */}
+        {/* <span className="rounded-full border px-4 py-1 text-slate-700">JSON</span> */}
+        <span className="rounded-full border px-4 py-1 text-sm text-slate-700">TXT</span>
       </div>
 
-      <ul className="mt-4 space-y-2 text-sm text-slate-600">
+      <h2 className="mt-6 max-w-4xl text-2xl font-semibold text-slate-900">
+        Actions you can perform
+      </h2>
+
+      <ul className="mt-4 space-y-2 text-sm text-slate-600 text-left">
         <li>• Automatic validation and error reporting</li>
         <li>• Real-time progress tracking</li>
         <li>• Detailed statistical insights</li>
         <li>• Downloadable analysis results</li>
       </ul>
     </section>
+
   )
 }

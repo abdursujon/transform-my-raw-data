@@ -20,7 +20,6 @@ Edit package.json:
   "deploy": "gh-pages -d dist"
 }
 
-
 ### 4. Build the APP
 npm run build
 
