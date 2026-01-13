@@ -1,4 +1,4 @@
-# DataDock
+# Transform My Raw Data
 ## Overview
 A React web app that lets users upload files, connects to a **Spring Boot Data Analysis API** (developed by author of this application), displays advanced stats, tracks progress, and provides downloadable analysis results.
 

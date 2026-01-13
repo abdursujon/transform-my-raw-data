@@ -1,5 +1,8 @@
 import { useState, type ChangeEvent } from 'react'
 
+const API_BASE_URL =
+  'https://spring-data-analysis-506639246506.europe-west2.run.app'
+
 export default function FileUpload() {
   const [file, setFile] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -33,9 +36,9 @@ export default function FileUpload() {
     setError(null)
     try {
       const csvText = await file.text()
-      const res = await fetch('/api/analysis/ingestCsv', {
+      const res = await fetch(`${API_BASE_URL}/api/analysis/ingestCsv`, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
+        headers: { 'Content-Type': 'text/csv' },
         body: csvText,
       })
       const text = await res.text()
@@ -57,7 +60,9 @@ export default function FileUpload() {
     if (!analysisId) return
     setDownloading(true)
     try {
-      const res = await fetch(`/api/analysis/${analysisId}/download.json`)
+      const res = await fetch(
+        `${API_BASE_URL}/api/analysis/${analysisId}/download.json`
+      )
       if (!res.ok) {
         setError('Download failed')
         return
@@ -79,10 +84,15 @@ export default function FileUpload() {
   }
 
   return (
-    <div className="mt-10 flex flex-col items-center gap-6">
+    <div className="mt-0 flex flex-col items-center gap-6">
       <div className="w-full max-w-md rounded-xl border bg-white p-6 shadow-sm">
         <label className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:border-blue-500">
-          <input type="file" accept=".csv" onChange={handleSelect} className="hidden" />
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleSelect}
+            className="hidden"
+          />
           <div className="text-sm text-gray-600">
             {fileName ?? 'Click to select a CSV file'}
           </div>
@@ -96,12 +106,18 @@ export default function FileUpload() {
           Upload & Analyze
         </button>
 
-        {loading && <p className="mt-3 text-center text-sm text-blue-600">Uploading…</p>}
-        {error && <p className="mt-3 text-center text-sm text-red-600">{error}</p>}
+        {loading && (
+          <p className="mt-3 text-center text-sm text-blue-600">
+            Uploading…
+          </p>
+        )}
+        {error && (
+          <p className="mt-3 text-center text-sm text-red-600">{error}</p>
+        )}
       </div>
 
       {analysis && (
-        <div className="w-full max-w-4xl rounded-xl border bg-white p-6 shadow-sm mb-10">
+        <div className="mt-10 w-full max-w-4xl rounded-xl border bg-white p-6 shadow-sm">
           <h2 className="mb-4 text-lg font-semibold">Analysis Result</h2>
           <pre className="max-h-96 overflow-auto rounded bg-slate-100 p-4 text-sm">
             {JSON.stringify(analysis, null, 2)}

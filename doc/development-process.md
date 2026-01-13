@@ -1,17 +1,16 @@
-# DataDock — Vite + React + TypeScript + Tailwind Setup Guide
+# transform-my-raw-data — Vite + React + TypeScript + Tailwind Setup Guide
 
 
-## 1. Create Project Directory
+## 1. Clone the Project Directory
 ```bash
-cd ~/Projects
-mkdir DataDock
-cd DataDock
+git clone https://github.com/abdursujon/transform-my-raw-data.git
 ```
 
 ## 2. Create react app with typeScript and add node.js dependency 
 ```bash
 npm create vite@latest . -- --template react-ts
 npm install
+npm install -D typescript@latest
 ```
 
 **Project Flow**
@@ -106,7 +105,7 @@ import logo from '../assets/favicon.png'
 export default function Header() {
   return (
     <header className="flex items-center justify-center h-[120px]">
-      <img src={logo} alt="DataDock Logo" className="h-12 w-12" />
+      <img src={logo} alt="transform-my-raw-data Logo" className="h-12 w-12" />
     </header>
   )
 }
