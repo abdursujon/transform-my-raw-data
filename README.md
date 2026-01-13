@@ -3,14 +3,13 @@
 A React web app that lets users upload files, connects to a **Spring Boot Data Analysis API** (developed by author of this application), displays advanced stats, tracks progress, and provides downloadable analysis results.
 
 ## Tech Stack
-- React, Vite, TypeScript, Elastic UI  
+- React, Vite, TypeScript, Tailwind 
 
-## Live URL where you can upload file instantly for analysis.
-https://abdursujon.github.io/transform-my-raw-data/
+## Live URL where you can upload file instantly for analysis: https://abdursujon.github.io/transform-my-raw-data/
 
 
 ## Features
-- Upload files in **JSON, Excel, TXT, CSV** formats.
+- Upload files in **TXT, CSV** formats.
 - Display advanced stats for uploaded files:
   - Progress of analysis
   - Completion status
@@ -41,7 +40,7 @@ https://abdursujon.github.io/transform-my-raw-data/
 
 
 ## How to use 
-1. Open the web app.  
+1. Open the web app at: https://abdursujon.github.io/transform-my-raw-data/.  
 2. Upload a supported file.  
 3. Monitor progress and stats on the UI.  
 4. View results and download processed data.  

@@ -18,7 +18,7 @@ export default function Article() {
       <p className="mt-3">
         The application accepts CSV, and TXT files (JSON, and Excel will be avaiable soon). Each file is
         parsed, validated, and analysed using a dedicated Spring Boot Data
-        Analysis API. 
+        Analysis API.
       </p>
 
       <h3 className="mt-10 text-2xl font-semibold text-slate-900">
