@@ -5,6 +5,10 @@ A React web app that lets users upload files, connects to a **Spring Boot Data A
 ## Tech Stack
 - React, Vite, TypeScript, Elastic UI  
 
+## Live URL where you can upload file instantly for analysis.
+https://abdursujon.github.io/transform-my-raw-data/
+
+
 ## Features
 - Upload files in **JSON, Excel, TXT, CSV** formats.
 - Display advanced stats for uploaded files:
